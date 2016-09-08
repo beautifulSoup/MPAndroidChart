@@ -128,9 +128,15 @@ public class HorizontalBarChart extends BarChart {
     @Override
     protected void prepareValuePxMatrix() {
         mRightAxisTransformer.prepareMatrixValuePx(mAxisRight.mAxisMinimum, mAxisRight.mAxisRange, mXAxis.mAxisRange,
-                mXAxis.mAxisMinimum);
+                mXAxis.mAxisMinimum, mXAxis.getPaddingMin(),
+                mXAxis.getPaddingMax(),
+                mAxisRight.getPaddingMax(),
+                mAxisRight.getPaddingMin());
         mLeftAxisTransformer.prepareMatrixValuePx(mAxisLeft.mAxisMinimum, mAxisLeft.mAxisRange, mXAxis.mAxisRange,
-                mXAxis.mAxisMinimum);
+                mXAxis.mAxisMinimum, mXAxis.getPaddingMin(),
+                mXAxis.getPaddingMax(),
+                mAxisLeft.getPaddingMax(),
+                mAxisLeft.getPaddingMin());
     }
 
     @Override

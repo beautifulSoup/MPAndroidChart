@@ -86,6 +86,12 @@ public class RadarChartActivitry extends DemoBase {
             public int getDecimalDigits() {
                 return 0;
             }
+
+            @Override
+            public int getColor(float value, AxisBase axis) {
+                return 0;
+            }
+
         });
         xAxis.setTextColor(Color.WHITE);
 

@@ -102,6 +102,12 @@ public class LineChartTime extends DemoBase implements OnSeekBarChangeListener {
             public int getDecimalDigits() {
                 return 0;
             }
+
+            @Override
+            public int getColor(float value, AxisBase axis) {
+                return 0;
+            }
+
         });
 
         YAxis leftAxis = mChart.getAxisLeft();

@@ -39,6 +39,9 @@ public class XYMarkerView extends MarkerView {
     public void refreshContent(Entry e, Highlight highlight) {
 
         tvContent.setText("x: " + xAxisValueFormatter.getFormattedValue(e.getX(), null) + ", y: " + format.format(e.getY()));
+        if(xAxisValueFormatter.getColor(e.getX(), null) != 0){
+            tvContent.setTextColor(xAxisValueFormatter.getColor(e.getX(), null));
+        }
 
         super.refreshContent(e, highlight);
     }

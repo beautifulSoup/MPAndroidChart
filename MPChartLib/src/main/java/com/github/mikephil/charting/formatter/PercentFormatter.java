@@ -47,4 +47,10 @@ public class PercentFormatter implements IValueFormatter, IAxisValueFormatter
     public int getDecimalDigits() {
         return 1;
     }
+
+    @Override
+    public int getColor(float value, AxisBase axis) {
+        return 0;
+    }
+
 }

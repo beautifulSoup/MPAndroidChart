@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.Legend.LegendForm;
 import com.github.mikephil.charting.components.LimitLine;
@@ -28,6 +29,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
@@ -87,6 +89,10 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
         // if disabled, scaling can be done on x- and y-axis separately
         mChart.setPinchZoom(true);
 
+        mChart.getLegend().setEnabled(false);
+        mChart.setExtraBottomOffset(15f);
+        mChart.setExtraLeftOffset(40f);
+
         // set an alternative background color
         // mChart.setBackgroundColor(Color.GRAY);
 
@@ -105,6 +111,13 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
 
         XAxis xAxis = mChart.getXAxis();
         xAxis.enableGridDashedLine(10f, 10f, 0f);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setLabelCount(3, true);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+        xAxis.setDrawLabelTop(false);
+        xAxis.setAvoidFirstLastClipping(true);
+        xAxis.setPaddingMax(3f);
+        xAxis.setPaddingMin(3f);
         //xAxis.setValueFormatter(new MyCustomXAxisValueFormatter());
         //xAxis.addLimitLine(llXAxis); // add x-axis limit line
 
@@ -126,19 +139,60 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
         ll2.setTypeface(tf);
 
         YAxis leftAxis = mChart.getAxisLeft();
+        leftAxis.setAvoidFirstLastClipping(true);
         leftAxis.removeAllLimitLines(); // reset all limit lines to avoid overlapping lines
         leftAxis.addLimitLine(ll1);
         leftAxis.addLimitLine(ll2);
-        leftAxis.setAxisMaximum(200f);
-        leftAxis.setAxisMinimum(-50f);
+        leftAxis.setYOffset(-10);
         //leftAxis.setYOffset(20f);
         leftAxis.enableGridDashedLine(10f, 10f, 0f);
-        leftAxis.setDrawZeroLine(false);
+        leftAxis.setDrawZeroLine(true);
+        leftAxis.setPaddingMax(20f);
+        leftAxis.setPaddingMin(20f);
+        leftAxis.setAxisMaximum(200);
+        leftAxis.setAxisMinimum(-50);
+        leftAxis.setLabelCount(5, true);
 
         // limit lines are drawn behind data (and not on top)
         leftAxis.setDrawLimitLinesBehindData(true);
 
         mChart.getAxisRight().setEnabled(false);
+        YAxis rightAxis = mChart.getAxisRight();
+
+        rightAxis.setLabelCount(5, true);
+        rightAxis.setEnabled(true);
+        rightAxis.setAxisMaximum(200f);
+        rightAxis.setAxisMinimum(-50f);
+        rightAxis.setPaddingMax(20f);
+        rightAxis.setPaddingMin(20f);
+        rightAxis.setValueFormatter(new IAxisValueFormatter() {
+            @Override
+            public String getFormattedValue(float value, AxisBase axis) {
+                if(Float.compare(value, -50f) == 0 || Float.compare(value, 200f)==0){
+                    return ""+ ((value - 100) / 100f);
+                }
+                return "";
+            }
+
+            @Override
+            public int getDecimalDigits() {
+                return 0;
+            }
+
+            @Override
+            public int getColor(float value, AxisBase axis) {
+                if(Float.compare(value, 100) > 0){
+                    return Color.RED;
+                } else if(Float.compare(value, 100) < 0){
+                    return Color.GREEN;
+                } else {
+                    return Color.GRAY;
+                }
+            }
+
+        });
+        rightAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        rightAxis.setDrawGridLines(false);
 
         //mChart.getViewPortHandler().setMaximumScaleY(2f);
         //mChart.getViewPortHandler().setMaximumScaleX(2f);

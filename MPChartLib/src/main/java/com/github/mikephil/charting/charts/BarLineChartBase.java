@@ -100,7 +100,7 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
     /**
      * Sets the minimum offset (padding) around the chart, defaults to 15
      */
-    protected float mMinOffset = 15.f;
+    protected float mMinOffset = 5.f;
 
     /**
      * flag indicating if the chart should stay at the same position after a rotation. Default is false.
@@ -283,11 +283,19 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
         mRightAxisTransformer.prepareMatrixValuePx(mXAxis.mAxisMinimum,
                 mXAxis.mAxisRange,
                 mAxisRight.mAxisRange,
-                mAxisRight.mAxisMinimum);
+                mAxisRight.mAxisMinimum,
+                mXAxis.getPaddingMin(),
+                mXAxis.getPaddingMax(),
+                mAxisRight.getPaddingMax(),
+                mAxisRight.getPaddingMin());
         mLeftAxisTransformer.prepareMatrixValuePx(mXAxis.mAxisMinimum,
                 mXAxis.mAxisRange,
                 mAxisLeft.mAxisRange,
-                mAxisLeft.mAxisMinimum);
+                mAxisLeft.mAxisMinimum,
+                mXAxis.getPaddingMin(),
+                mXAxis.getPaddingMax(),
+                mAxisLeft.getPaddingMax(),
+                mAxisLeft.getPaddingMin());
     }
 
     protected void prepareOffsetMatrix() {

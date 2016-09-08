@@ -2,7 +2,6 @@ package com.github.mikephil.charting.renderer;
 
 import android.graphics.Canvas;
 import android.graphics.Path;
-import android.graphics.PointF;
 
 import com.github.mikephil.charting.charts.RadarChart;
 import com.github.mikephil.charting.components.LimitLine;
@@ -171,6 +170,13 @@ public class YAxisRendererRadarChart extends YAxisRenderer {
             Utils.getPosition(center, r, mChart.getRotationAngle(), pOut);
 
             String label = mYAxis.getFormattedLabel(j);
+
+            int color = mYAxis.getFormattedLabelColor(j);
+            if(color != 0){
+                mAxisLabelPaint.setColor(color);
+            } else {
+                mAxisLabelPaint.setColor(mYAxis.getTextColor());
+            }
 
             c.drawText(label, pOut.x + 10, pOut.y, mAxisLabelPaint);
         }

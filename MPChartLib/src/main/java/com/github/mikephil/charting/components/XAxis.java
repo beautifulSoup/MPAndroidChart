@@ -41,16 +41,18 @@ public class XAxis extends AxisBase {
      */
     protected float mLabelRotationAngle = 0f;
 
-    /**
-     * if set to true, the chart will avoid that the first and last label entry
-     * in the chart "clip" off the edge of the chart
-     */
-    private boolean mAvoidFirstLastClipping = false;
+
 
     /**
      * the position of the x-labels relative to the chart
      */
     private XAxisPosition mPosition = XAxisPosition.TOP;
+
+    //是否画顶部的label
+    private boolean mDrawLabelTop = true;
+
+    //是否画底部的label
+    private boolean mDrawLabelBottom = true;
 
     /**
      * enum for the position of the x-labels relative to the chart
@@ -97,22 +99,23 @@ public class XAxis extends AxisBase {
         mLabelRotationAngle = angle;
     }
 
-    /**
-     * if set to true, the chart will avoid that the first and last label entry
-     * in the chart "clip" off the edge of the chart or the screen
-     *
-     * @param enabled
-     */
-    public void setAvoidFirstLastClipping(boolean enabled) {
-        mAvoidFirstLastClipping = enabled;
+
+
+
+
+    public void setDrawLabelTop(boolean drawLabelTop){
+        mDrawLabelTop = drawLabelTop;
     }
 
-    /**
-     * returns true if avoid-first-lastclipping is enabled, false if not
-     *
-     * @return
-     */
-    public boolean isAvoidFirstLastClippingEnabled() {
-        return mAvoidFirstLastClipping;
+    public boolean getDrawableTop(){
+        return mDrawLabelTop;
+    }
+
+    public void setDrawLabelBottom(boolean drawLabelBottom){
+        mDrawLabelBottom = drawLabelBottom;
+    }
+
+    public boolean getDrawableBottom(){
+        return mDrawLabelBottom;
     }
 }

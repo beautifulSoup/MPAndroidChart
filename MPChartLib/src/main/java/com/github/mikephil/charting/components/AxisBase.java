@@ -32,6 +32,10 @@ public abstract class AxisBase extends ComponentBase {
 
     private float mAxisLineWidth = 1f;
 
+    private float mPaddingMin = 0f;
+
+    private float mPaddingMax = 0f;
+
     /**
      * the actual array of entries
      */
@@ -310,6 +314,12 @@ public abstract class AxisBase extends ComponentBase {
     }
 
     /**
+     * if set to true, the chart will avoid that the first and last label entry
+     * in the chart "clip" off the edge of the chart
+     */
+    private boolean mAvoidFirstLastClipping = false;
+
+    /**
      * sets the number of label entries for the y-axis max = 25, min = 2, default: 6, be aware
      * that this number is not
      * fixed (if force == false) and can only be approximated.
@@ -460,6 +470,14 @@ public abstract class AxisBase extends ComponentBase {
             return "";
         else
             return getValueFormatter().getFormattedValue(mEntries[index], this);
+    }
+
+    public int getFormattedLabelColor(int index){
+        if(index < 0 || index >= mEntries.length){
+            return 0;
+        } else {
+            return getValueFormatter().getColor(mEntries[index], this);
+        }
     }
 
     /**
@@ -722,5 +740,41 @@ public abstract class AxisBase extends ComponentBase {
 
         // actual range
         this.mAxisRange = Math.abs(max - min);
+    }
+
+
+    public void setPaddingMax(float paddingMax){
+        mPaddingMax = paddingMax;
+    }
+
+    public float getPaddingMax(){
+        return mPaddingMax;
+    }
+
+    public void setPaddingMin(float paddingMin){
+        mPaddingMin = paddingMin;
+    }
+
+    public float getPaddingMin(){
+        return mPaddingMin;
+    }
+
+    /**
+     * if set to true, the chart will avoid that the first and last label entry
+     * in the chart "clip" off the edge of the chart or the screen
+     *
+     * @param enabled
+     */
+    public void setAvoidFirstLastClipping(boolean enabled) {
+        mAvoidFirstLastClipping = enabled;
+    }
+
+    /**
+     * returns true if avoid-first-lastclipping is enabled, false if not
+     *
+     * @return
+     */
+    public boolean isAvoidFirstLastClippingEnabled() {
+        return mAvoidFirstLastClipping;
     }
 }

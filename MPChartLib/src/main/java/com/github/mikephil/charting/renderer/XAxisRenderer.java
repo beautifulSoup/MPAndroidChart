@@ -117,30 +117,42 @@ public class XAxisRenderer extends AxisRenderer {
         if (mXAxis.getPosition() == XAxisPosition.TOP) {
             pointF.x = 0.5f;
             pointF.y = 1.0f;
-            drawLabels(c, mViewPortHandler.contentTop() - yoffset, pointF);
+            if(mXAxis.getDrawableTop()) {
+                drawLabels(c, mViewPortHandler.contentTop() - yoffset, pointF);
+            }
 
         } else if (mXAxis.getPosition() == XAxisPosition.TOP_INSIDE) {
             pointF.x = 0.5f;
             pointF.y = 1.0f;
-            drawLabels(c, mViewPortHandler.contentTop() + yoffset + mXAxis.mLabelRotatedHeight, pointF);
+            if(mXAxis.getDrawableTop()) {
+                drawLabels(c, mViewPortHandler.contentTop() + yoffset + mXAxis.mLabelRotatedHeight, pointF);
+            }
 
         } else if (mXAxis.getPosition() == XAxisPosition.BOTTOM) {
             pointF.x = 0.5f;
             pointF.y = 0.0f;
-            drawLabels(c, mViewPortHandler.contentBottom() + yoffset, pointF);
+            if(mXAxis.getDrawableBottom()) {
+                drawLabels(c, mViewPortHandler.contentBottom() + yoffset, pointF);
+            }
 
         } else if (mXAxis.getPosition() == XAxisPosition.BOTTOM_INSIDE) {
             pointF.x = 0.5f;
             pointF.y = 0.0f;
-            drawLabels(c, mViewPortHandler.contentBottom() - yoffset - mXAxis.mLabelRotatedHeight, pointF);
+            if(mXAxis.getDrawableBottom()) {
+                drawLabels(c, mViewPortHandler.contentBottom() - yoffset - mXAxis.mLabelRotatedHeight, pointF);
+            }
 
         } else { // BOTH SIDED
             pointF.x = 0.5f;
             pointF.y = 1.0f;
-            drawLabels(c, mViewPortHandler.contentTop() - yoffset, pointF);
+            if(mXAxis.getDrawableTop()) {
+                drawLabels(c, mViewPortHandler.contentTop() - yoffset, pointF);
+            }
             pointF.x = 0.5f;
             pointF.y = 0.0f;
-            drawLabels(c, mViewPortHandler.contentBottom() + yoffset, pointF);
+            if(mXAxis.getDrawableBottom()) {
+                drawLabels(c, mViewPortHandler.contentBottom() + yoffset, pointF);
+            }
         }
         MPPointF.recycleInstance(pointF);
     }
@@ -207,18 +219,21 @@ public class XAxisRenderer extends AxisRenderer {
                 if (mXAxis.isAvoidFirstLastClippingEnabled()) {
 
                     // avoid clipping of the last
-                    if (i == mXAxis.mEntryCount - 1 && mXAxis.mEntryCount > 1) {
+                    if (i / 2 == mXAxis.mEntryCount - 1 && mXAxis.mEntryCount > 1) {
                         float width = Utils.calcTextWidth(mAxisLabelPaint, label);
 
-                        if (width > mViewPortHandler.offsetRight() * 2
-                                && x + width > mViewPortHandler.getChartWidth())
-                            x -= width / 2;
+//                        if (width > mViewPortHandler.offsetRight() * 2
+//                                && x + width > mViewPortHandler.getChartWidth())
+                            if(x + width / 2 > mViewPortHandler.contentRight()) {
+                                x = mViewPortHandler.contentRight() - width / 2;
+                            }
 
                         // avoid clipping of the first
                     } else if (i == 0) {
-
                         float width = Utils.calcTextWidth(mAxisLabelPaint, label);
-                        x += width / 2;
+                        if(x - width / 2 < mViewPortHandler.contentLeft()) {
+                            x = mViewPortHandler.contentLeft() + width / 2;
+                        }
                     }
                 }
 

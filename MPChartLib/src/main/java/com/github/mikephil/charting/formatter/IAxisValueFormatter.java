@@ -27,4 +27,6 @@ public interface IAxisValueFormatter
      * @return
      */
     int getDecimalDigits();
+
+    int getColor(float value, AxisBase axis);
 }

@@ -97,4 +97,11 @@ public class LargeValueFormatter implements IValueFormatter, IAxisValueFormatter
     public int getDecimalDigits() {
         return 0;
     }
+
+    @Override
+    public int getColor(float value, AxisBase axis) {
+        return 0;
+    }
+
+
 }

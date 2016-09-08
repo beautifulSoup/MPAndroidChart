@@ -90,6 +90,12 @@ public class StackedBarActivityNegative extends DemoBase implements
             public int getDecimalDigits() {
                 return 0;
             }
+
+            @Override
+            public int getColor(float value, AxisBase axis) {
+                return 0;
+            }
+
         });
 
         Legend l = mChart.getLegend();
@@ -245,5 +251,12 @@ public class StackedBarActivityNegative extends DemoBase implements
         public int getDecimalDigits() {
             return 0;
         }
+
+
+        @Override
+        public int getColor(float value, AxisBase axis) {
+            return 0;
+        }
+
     }
 }

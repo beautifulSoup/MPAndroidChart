@@ -49,4 +49,10 @@ public class DefaultAxisValueFormatter implements IAxisValueFormatter
     public int getDecimalDigits() {
         return digits;
     }
+
+    @Override
+    public int getColor(float value, AxisBase axis) {
+        return 0;
+    }
+
 }

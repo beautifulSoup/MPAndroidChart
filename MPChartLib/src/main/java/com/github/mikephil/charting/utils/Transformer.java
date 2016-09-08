@@ -47,10 +47,10 @@ public class Transformer {
      * @param deltaY
      * @param yChartMin
      */
-    public void prepareMatrixValuePx(float xChartMin, float deltaX, float deltaY, float yChartMin) {
+    public void prepareMatrixValuePx(float xChartMin, float deltaX, float deltaY, float yChartMin, float paddingLeft, float paddingRight, float paddingTop, float paddingBottom) {
 
-        float scaleX = (float) ((mViewPortHandler.contentWidth()) / deltaX);
-        float scaleY = (float) ((mViewPortHandler.contentHeight()) / deltaY);
+        float scaleX = (float) ((mViewPortHandler.contentWidth() - paddingLeft - paddingRight) / deltaX);
+        float scaleY = (float) ((mViewPortHandler.contentHeight() - paddingTop - paddingBottom) / deltaY);
 
         if (Float.isInfinite(scaleX)) {
             scaleX = 0;
@@ -63,6 +63,7 @@ public class Transformer {
         mMatrixValueToPx.reset();
         mMatrixValueToPx.postTranslate(-xChartMin, -yChartMin);
         mMatrixValueToPx.postScale(scaleX, -scaleY);
+        mMatrixValueToPx.postTranslate(paddingLeft, -paddingBottom);
     }
 
     /**

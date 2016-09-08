@@ -98,6 +98,7 @@ public class LineChartActivity2 extends DemoBase implements OnSeekBarChangeListe
 //        l.setYOffset(11f);
 
         XAxis xAxis = mChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setTypeface(mTfLight);
         xAxis.setTextSize(11f);
         xAxis.setTextColor(Color.WHITE);

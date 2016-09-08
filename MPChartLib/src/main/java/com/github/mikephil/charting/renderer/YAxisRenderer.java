@@ -122,7 +122,27 @@ public class YAxisRenderer extends AxisRenderer {
             if (!mYAxis.isDrawTopYLabelEntryEnabled() && i >= mYAxis.mEntryCount - 1)
                 return;
 
-            c.drawText(text, fixedPosition, positions[i * 2 + 1] + offset, mAxisLabelPaint);
+            int color = mYAxis.getFormattedLabelColor(i);
+            if(color != 0){
+                mAxisLabelPaint.setColor(color);
+            } else {
+                mAxisLabelPaint.setColor(mYAxis.getTextColor());
+            }
+
+            float y = positions[i * 2 + 1] + offset;
+            if(mYAxis.isAvoidFirstLastClippingEnabled()){
+                float height = Utils.calcTextHeight(mAxisLabelPaint, text);
+                if(i == 0){
+                    if(y + height > mViewPortHandler.contentBottom() ){
+                        y = mViewPortHandler.contentBottom() - height;
+                    }
+                } else if(i == mYAxis.mEntryCount - 1 && mYAxis.mEntryCount > 1){
+                    if(y - height < mViewPortHandler.contentTop()){
+                        y = mViewPortHandler.contentTop()  + height;
+                    }
+                }
+            }
+            c.drawText(text, fixedPosition, y, mAxisLabelPaint);
         }
     }
 

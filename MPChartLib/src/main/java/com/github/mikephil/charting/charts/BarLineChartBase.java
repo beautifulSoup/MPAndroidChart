@@ -477,17 +477,22 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
 
                 // offsets for x-labels
                 if (mXAxis.getPosition() == XAxisPosition.BOTTOM) {
-
-                    offsetBottom += xlabelheight;
+                    if(mXAxis.getDrawableBottom()) {
+                        offsetBottom += xlabelheight;
+                    }
 
                 } else if (mXAxis.getPosition() == XAxisPosition.TOP) {
-
-                    offsetTop += xlabelheight;
+                    if(mXAxis.getDrawableTop()) {
+                        offsetTop += xlabelheight;
+                    }
 
                 } else if (mXAxis.getPosition() == XAxisPosition.BOTH_SIDED) {
-
-                    offsetBottom += xlabelheight;
-                    offsetTop += xlabelheight;
+                    if(mXAxis.getDrawableBottom()) {
+                        offsetBottom += xlabelheight;
+                    }
+                    if(mXAxis.getDrawableTop()) {
+                        offsetTop += xlabelheight;
+                    }
                 }
             }
 

@@ -451,17 +451,20 @@ public abstract class AxisBase extends ComponentBase {
      * @return
      */
     public String getLongestLabel() {
+        if(mDrawLabels) {
+            String longest = "";
 
-        String longest = "";
+            for (int i = 0; i < mEntries.length; i++) {
+                String text = getFormattedLabel(i);
 
-        for (int i = 0; i < mEntries.length; i++) {
-            String text = getFormattedLabel(i);
+                if (text != null && longest.length() < text.length())
+                    longest = text;
+            }
 
-            if (text != null && longest.length() < text.length())
-                longest = text;
+            return longest;
+        } else {
+            return "";
         }
-
-        return longest;
     }
 
     public String getFormattedLabel(int index) {

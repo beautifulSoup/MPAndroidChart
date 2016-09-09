@@ -90,8 +90,7 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
         mChart.setPinchZoom(true);
 
         mChart.getLegend().setEnabled(false);
-        mChart.setExtraBottomOffset(15f);
-        mChart.setExtraLeftOffset(40f);
+        mChart.setExtraBottomOffset(5f);
 
         // set an alternative background color
         // mChart.setBackgroundColor(Color.GRAY);
@@ -113,7 +112,7 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
         xAxis.enableGridDashedLine(10f, 10f, 0f);
         xAxis.setDrawAxisLine(true);
         xAxis.setLabelCount(3, true);
-        xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawLabelTop(false);
         xAxis.setAvoidFirstLastClipping(true);
         xAxis.setPaddingMax(3f);
@@ -151,6 +150,7 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
         leftAxis.setPaddingMin(20f);
         leftAxis.setAxisMaximum(200);
         leftAxis.setAxisMinimum(-50);
+        leftAxis.setDrawLabels(false);
         leftAxis.setLabelCount(5, true);
 
         // limit lines are drawn behind data (and not on top)

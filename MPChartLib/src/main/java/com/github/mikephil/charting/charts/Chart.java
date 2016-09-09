@@ -182,6 +182,12 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
             mExtraBottomOffset = 0.f,
             mExtraLeftOffset = 0.f;
 
+
+    private float mForceTopOffset = -1.f;
+    private float mForceBottomOffset = -1.f;
+    private float mForceLeftOffset = -1.f;
+    private float mForceRightOffset = -1.f;
+
     /**
      * default constructor for initialization in code
      */
@@ -1800,4 +1806,37 @@ public abstract class Chart<T extends ChartData<? extends IDataSet<? extends Ent
     public void setUnbindEnabled(boolean enabled) {
         this.mUnbind = enabled;
     }
+
+    public float getForceTopOffset(){
+        return mForceTopOffset;
+    }
+
+    public float getForceBottomOffset(){
+        return mForceBottomOffset;
+    }
+
+    public float getForceLeftOffset(){
+        return mForceLeftOffset;
+    }
+
+    public float getForceRightOffset(){
+        return mForceRightOffset;
+    }
+
+    public void setForceTopOffset(float forceTopOffset){
+        mForceTopOffset = forceTopOffset;
+    }
+
+    public void setForceBottomOffset(float forceBottomOffset){
+        mForceBottomOffset = forceBottomOffset;
+    }
+
+    public void setForceLeftOffset(float forceLeftOffset){
+        mForceLeftOffset = forceLeftOffset;
+    }
+
+    public void setForceRightOffset(float forceRightOffset){
+        mForceRightOffset = forceRightOffset;
+    }
+
 }

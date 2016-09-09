@@ -452,7 +452,6 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
         if (!mCustomViewPortEnabled) {
 
             float offsetLeft = 0f, offsetRight = 0f, offsetTop = 0f, offsetBottom = 0f;
-
             calculateLegendOffsets(mOffsetsBuffer);
 
             offsetLeft += mOffsetsBuffer.left;
@@ -502,6 +501,22 @@ public abstract class BarLineChartBase<T extends BarLineScatterCandleBubbleData<
             offsetLeft += getExtraLeftOffset();
 
             float minOffset = Utils.convertDpToPixel(mMinOffset);
+
+            if(Float.compare(getForceBottomOffset(), 0) >= 0){
+                offsetBottom = getForceBottomOffset();
+            }
+
+            if(Float.compare(getForceLeftOffset(), 0) >= 0){
+                offsetLeft = getForceLeftOffset();
+            }
+
+            if (Float.compare(getForceRightOffset(), 0) >= 0) {
+                offsetRight = getForceRightOffset();
+            }
+
+            if(Float.compare(getForceTopOffset(), 0) >= 0){
+                offsetTop = getForceTopOffset();
+            }
 
             mViewPortHandler.restrainViewPort(
                     Math.max(minOffset, offsetLeft),

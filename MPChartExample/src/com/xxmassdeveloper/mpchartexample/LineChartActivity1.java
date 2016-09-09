@@ -73,6 +73,8 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
         mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
 
+        mChart.setForceTopOffset(30f);
+        mChart.setForceLeftOffset(30f);
         // no description text
         mChart.setDescription("");
         mChart.setNoDataTextDescription("You need to provide data for the chart.");
@@ -150,7 +152,7 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
         leftAxis.setPaddingMin(20f);
         leftAxis.setAxisMaximum(200);
         leftAxis.setAxisMinimum(-50);
-        leftAxis.setDrawLabels(false);
+        leftAxis.setDrawLabels(true);
         leftAxis.setLabelCount(5, true);
 
         // limit lines are drawn behind data (and not on top)

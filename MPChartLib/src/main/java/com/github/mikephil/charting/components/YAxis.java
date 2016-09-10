@@ -5,6 +5,9 @@ import android.graphics.Paint;
 
 import com.github.mikephil.charting.utils.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Class representing the y-axis labels settings and its entries. Only use the setter methods to
  * modify it. Do not
@@ -57,6 +60,9 @@ public class YAxis extends AxisBase {
      * the position of the y-labels relative to the chart
      */
     private YAxisLabelPosition mPosition = YAxisLabelPosition.OUTSIDE_CHART;
+
+
+    private List<SpecialLabel> mSpecialLabels = new ArrayList<>();
 
     /**
      * enum for the position of the y-labels relative to the chart
@@ -314,6 +320,18 @@ public class YAxis extends AxisBase {
         width = Math.max(minWidth, Math.min(width, maxWidth > 0.0 ? maxWidth : width));
 
         return width;
+    }
+
+    public void addSpecialLabels(SpecialLabel label){
+        mSpecialLabels.add(label);
+    }
+
+    public void clearSpecialLabels(){
+        mSpecialLabels.clear();
+    }
+
+    public List<SpecialLabel> getSpecialLabels(){
+        return mSpecialLabels;
     }
 
     /**

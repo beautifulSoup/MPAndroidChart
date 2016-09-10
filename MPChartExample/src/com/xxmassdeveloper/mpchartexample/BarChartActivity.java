@@ -250,7 +250,6 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
         } else {
             set1 = new BarDataSet(yVals1, "The year 2017");
             set1.setColors(ColorTemplate.MATERIAL_COLORS);
-
             ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
             dataSets.add(set1);
 
@@ -258,6 +257,7 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
             data.setValueTextSize(10f);
             data.setValueTypeface(mTfLight);
             data.setBarWidth(0.9f);
+            data.setBarWidth(1.0f);
 
             mChart.setData(data);
         }

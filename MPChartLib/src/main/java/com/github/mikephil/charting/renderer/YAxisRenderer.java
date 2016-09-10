@@ -8,6 +8,7 @@ import android.graphics.Path;
 import android.graphics.RectF;
 
 import com.github.mikephil.charting.components.LimitLine;
+import com.github.mikephil.charting.components.SpecialLabel;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.components.YAxis.AxisDependency;
 import com.github.mikephil.charting.components.YAxis.YAxisLabelPosition;
@@ -24,6 +25,10 @@ public class YAxisRenderer extends AxisRenderer {
 
     protected Paint mZeroLinePaint;
 
+    protected Paint mSpecialLabelPaint;
+
+    protected Paint mSpecialLabelLinePaint;
+
     public YAxisRenderer(ViewPortHandler viewPortHandler, YAxis yAxis, Transformer trans) {
         super(viewPortHandler, trans, yAxis);
 
@@ -38,6 +43,10 @@ public class YAxisRenderer extends AxisRenderer {
             mZeroLinePaint.setColor(Color.GRAY);
             mZeroLinePaint.setStrokeWidth(1f);
             mZeroLinePaint.setStyle(Paint.Style.STROKE);
+
+            mSpecialLabelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mSpecialLabelLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mSpecialLabelLinePaint.setStyle(Paint.Style.STROKE);
         }
     }
 
@@ -86,7 +95,51 @@ public class YAxisRenderer extends AxisRenderer {
         }
 
         drawYLabels(c, xPos, positions, yoffset);
+
+        drawSpecialLabels(c);
     }
+
+    protected void drawSpecialLabels(Canvas c){
+        if(mYAxis.getAxisDependency() == AxisDependency.LEFT && mYAxis.getLabelPosition() == YAxisLabelPosition.OUTSIDE_CHART) {
+            List<SpecialLabel> labels = mYAxis.getSpecialLabels();
+            mSpecialLabelPaint.setTextAlign(Align.RIGHT);
+            float [] pts = getTransformedSpecialLabelYPosition(labels);
+            for (int i=0;i<labels.size();i++) {
+                SpecialLabel label = labels.get(i);
+                float xPos = mViewPortHandler.offsetLeft();
+                mSpecialLabelPaint.setColor(label.getTextColor());
+                mSpecialLabelPaint.setTextSize(label.getTextSize());
+                float textHeight = Utils.calcTextHeight(mSpecialLabelPaint, label.getText());
+                float yOffset = textHeight / 2.5f;
+                float yPos = pts[2 * i + 1] + yOffset;
+                c.drawText(label.getText(), xPos - label.getHorizontalPadding(), yPos, mSpecialLabelPaint);
+                float labelLength = Utils.calcTextWidth(mSpecialLabelPaint, label.getText());
+                mSpecialLabelLinePaint.setColor(label.getColor());
+                mSpecialLabelLinePaint.setStrokeWidth(label.getLineWidth());
+                c.drawRect(xPos - labelLength - label.getHorizontalPadding() * 2,
+                        pts[2 * i + 1] - yOffset - label.getVerticalPadding(),
+                        xPos,
+                        pts[2 * i + 1] + yOffset + label.getVerticalPadding(), mSpecialLabelLinePaint);
+
+                c.drawLine( mViewPortHandler.offsetLeft(), pts[2 * i + 1], mViewPortHandler.contentRight(), pts[2 * i + 1], mSpecialLabelLinePaint);
+
+            }
+        }
+    }
+
+
+    private float [] getTransformedSpecialLabelYPosition(List<SpecialLabel> labels){
+        float [] buffers = new float[labels.size() * 2];
+
+        for(int i=0;i<labels.size() * 2; i= i+2){
+            buffers[i + 1] = labels.get(i / 2).getValue();
+        }
+
+        mTrans.pointValuesToPixel(buffers);
+        return buffers;
+    }
+
+
 
     @Override
     public void renderAxisLine(Canvas c) {

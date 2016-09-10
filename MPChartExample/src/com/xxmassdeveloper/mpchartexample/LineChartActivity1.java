@@ -24,6 +24,7 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.Legend.LegendForm;
 import com.github.mikephil.charting.components.LimitLine;
 import com.github.mikephil.charting.components.LimitLine.LimitLabelPosition;
+import com.github.mikephil.charting.components.SpecialLabel;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
@@ -74,7 +75,6 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
         mChart.setDrawGridBackground(false);
 
         mChart.setForceTopOffset(30f);
-        mChart.setForceLeftOffset(30f);
         // no description text
         mChart.setDescription("");
         mChart.setNoDataTextDescription("You need to provide data for the chart.");
@@ -154,6 +154,26 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
         leftAxis.setAxisMinimum(-50);
         leftAxis.setDrawLabels(true);
         leftAxis.setLabelCount(5, true);
+        SpecialLabel label = new SpecialLabel();
+        label.setValue(75f);
+        label.setHorizontalPadding(5);
+        label.setVerticalPadding(2);
+        label.setTextColor(Color.BLUE);
+        label.setColor(Color.RED);
+        label.setTextSize(12);
+        label.setLineWidth(0.5f);
+        label.setText("text");
+        SpecialLabel label2 = new SpecialLabel();
+        label2.setValue(45f);
+        label2.setHorizontalPadding(3);
+        label2.setVerticalPadding(3);
+        label2.setTextColor(Color.BLACK);
+        label2.setColor(Color.BLUE);
+        label2.setTextSize(9);
+        label2.setLineWidth(1f);
+        label2.setText("text");
+        leftAxis.addSpecialLabels(label);
+        leftAxis.addSpecialLabels(label2);
 
         // limit lines are drawn behind data (and not on top)
         leftAxis.setDrawLimitLinesBehindData(true);

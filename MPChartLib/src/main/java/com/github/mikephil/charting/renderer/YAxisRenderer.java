@@ -29,6 +29,8 @@ public class YAxisRenderer extends AxisRenderer {
 
     protected Paint mSpecialLabelLinePaint;
 
+    protected Paint mSpecialLabelBackPaint;
+
     public YAxisRenderer(ViewPortHandler viewPortHandler, YAxis yAxis, Transformer trans) {
         super(viewPortHandler, trans, yAxis);
 
@@ -47,6 +49,9 @@ public class YAxisRenderer extends AxisRenderer {
             mSpecialLabelPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mSpecialLabelLinePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
             mSpecialLabelLinePaint.setStyle(Paint.Style.STROKE);
+
+            mSpecialLabelBackPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+            mSpecialLabelBackPaint.setStyle(Paint.Style.FILL);
         }
     }
 
@@ -112,15 +117,22 @@ public class YAxisRenderer extends AxisRenderer {
                 float textHeight = Utils.calcTextHeight(mSpecialLabelPaint, label.getText());
                 float yOffset = textHeight / 2.5f;
                 float yPos = pts[2 * i + 1] + yOffset;
-                c.drawText(label.getText(), xPos - label.getHorizontalPadding(), yPos, mSpecialLabelPaint);
+
                 float labelLength = Utils.calcTextWidth(mSpecialLabelPaint, label.getText());
                 mSpecialLabelLinePaint.setColor(label.getColor());
                 mSpecialLabelLinePaint.setStrokeWidth(label.getLineWidth());
+                mSpecialLabelBackPaint.setColor(label.getBackgroundColor());
+                c.drawRect(xPos - labelLength - label.getHorizontalPadding() * 2,
+                        pts[2 * i + 1] - yOffset - label.getVerticalPadding(),
+                        xPos,
+                        pts[2 * i + 1] + yOffset + label.getVerticalPadding(), mSpecialLabelBackPaint);
                 c.drawRect(xPos - labelLength - label.getHorizontalPadding() * 2,
                         pts[2 * i + 1] - yOffset - label.getVerticalPadding(),
                         xPos,
                         pts[2 * i + 1] + yOffset + label.getVerticalPadding(), mSpecialLabelLinePaint);
 
+
+                c.drawText(label.getText(), xPos - label.getHorizontalPadding(), yPos, mSpecialLabelPaint);
                 c.drawLine( mViewPortHandler.offsetLeft(), pts[2 * i + 1], mViewPortHandler.contentRight(), pts[2 * i + 1], mSpecialLabelLinePaint);
 
             }

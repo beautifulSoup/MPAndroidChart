@@ -16,6 +16,8 @@ public class SpecialLabel {
 
     int color = Color.BLACK;
 
+    int backgroundColor = Color.TRANSPARENT;
+
     int textColor = -1;
 
     float value;
@@ -94,5 +96,13 @@ public class SpecialLabel {
 
     public void setVerticalPadding(float verticalPadding) {
         VerticalPadding = Utils.convertDpToPixel(verticalPadding);
+    }
+
+    public int getBackgroundColor() {
+        return backgroundColor;
+    }
+
+    public void setBackgroundColor(int backgroundColor) {
+        this.backgroundColor = backgroundColor;
     }
 }

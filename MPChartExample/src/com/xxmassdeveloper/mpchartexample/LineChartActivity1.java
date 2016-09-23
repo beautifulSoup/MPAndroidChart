@@ -160,6 +160,7 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
         label.setVerticalPadding(2);
         label.setTextColor(Color.BLUE);
         label.setColor(Color.RED);
+        label.setBackgroundColor(Color.WHITE);
         label.setTextSize(12);
         label.setLineWidth(0.5f);
         label.setText("text");

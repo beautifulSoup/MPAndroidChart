@@ -92,7 +92,7 @@ public class LineChartRenderer extends LineRadarRenderer {
 
         for (ILineDataSet set : lineData.getDataSets()) {
 
-            if (set.isVisible())
+            if (set.isVisible() && set.isDrawLineEnabled())
                 drawDataSet(c, set);
         }
 
@@ -555,6 +555,8 @@ public class LineChartRenderer extends LineRadarRenderer {
             }
         }
     }
+
+
 
     @Override
     public void drawExtras(Canvas c) {

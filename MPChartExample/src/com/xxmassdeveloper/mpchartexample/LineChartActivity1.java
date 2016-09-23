@@ -435,7 +435,7 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
             // create a dataset and give it a type
             set1 = new LineDataSet(values, "DataSet 1");
 
-            // set the line to be drawn like this "- - - - - -"
+//             set the line to be drawn like this "- - - - - -"
             set1.enableDashedLine(10f, 5f, 0f);
             set1.enableDashedHighlightLine(10f, 5f, 0f);
             set1.setColor(Color.BLACK);
@@ -448,7 +448,6 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
             set1.setFormLineWidth(1f);
             set1.setFormLineDashEffect(new DashPathEffect(new float[]{10f, 5f}, 0f));
             set1.setFormSize(15.f);
-
             if (Utils.getSDKInt() >= 18) {
                 // fill drawable only supported on api level 18 and above
                 Drawable drawable = ContextCompat.getDrawable(this, R.drawable.fade_red);

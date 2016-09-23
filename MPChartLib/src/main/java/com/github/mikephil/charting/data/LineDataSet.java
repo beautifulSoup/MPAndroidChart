@@ -57,6 +57,8 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
      */
     private IFillFormatter mFillFormatter = new DefaultFillFormatter();
 
+    private boolean mDrawLine = true;
+
     /**
      * if true, drawing circles is enabled
      */
@@ -101,6 +103,7 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
         copied.mDrawCircles = mDrawCircles;
         copied.mDrawCircleHole = mDrawCircleHole;
         copied.mHighLightColor = mHighLightColor;
+        copied.mDrawLine = mDrawLine;
 
         return copied;
     }
@@ -387,6 +390,16 @@ public class LineDataSet extends LineRadarDataSet<Entry> implements ILineDataSet
         return mDrawCircleHole;
     }
 
+
+
+    public void setDrawLine(boolean enable){
+        mDrawLine = enable;
+    }
+
+    @Override
+    public boolean isDrawLineEnabled(){
+        return mDrawLine;
+    }
     /**
      * Sets a custom IFillFormatter to the chart that handles the position of the
      * filled-line for each DataSet. Set this to null to use the default logic.

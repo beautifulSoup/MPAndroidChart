@@ -321,6 +321,7 @@ public class LineChartActivity2 extends DemoBase implements OnSeekBarChangeListe
             set1.setCircleColor(Color.WHITE);
             set1.setLineWidth(2f);
             set1.setCircleRadius(3f);
+            set1.setDrawLine(false);
             set1.setFillAlpha(65);
             set1.setFillColor(ColorTemplate.getHoloBlue());
             set1.setHighLightColor(Color.rgb(244, 117, 117));

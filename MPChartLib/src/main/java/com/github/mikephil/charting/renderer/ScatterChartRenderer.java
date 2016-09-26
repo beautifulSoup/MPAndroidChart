@@ -159,7 +159,7 @@ public class ScatterChartRenderer extends LineScatterCandleRadarRenderer {
             high.setDraw((float) pix.x, (float) pix.y);
 
             // draw the lines
-            drawHighlightLines(c, (float) pix.x, (float) pix.y, set);
+            drawHighlightLines(c, (float) pix.x, (float) pix.y, e.getX(), e.getY(), set);
         }
     }
 }

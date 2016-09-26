@@ -31,6 +31,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.renderer.IHighlightRender;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.MPPointF;
 import com.xxmassdeveloper.mpchartexample.custom.DayAxisValueFormatter;
@@ -219,6 +220,8 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
         // TODO Auto-generated method stub
     }
 
+    IHighlightRender highlightRender = new CustomHighlightRender();
+
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
         // TODO Auto-generated method stub
@@ -245,10 +248,12 @@ public class BarChartActivity extends DemoBase implements OnSeekBarChangeListene
                 mChart.getData().getDataSetCount() > 0) {
             set1 = (BarDataSet) mChart.getData().getDataSetByIndex(0);
             set1.setValues(yVals1);
+
             mChart.getData().notifyDataChanged();
             mChart.notifyDataSetChanged();
         } else {
             set1 = new BarDataSet(yVals1, "The year 2017");
+            set1.setHighlightRender(highlightRender);
             set1.setColors(ColorTemplate.MATERIAL_COLORS);
             ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
             dataSets.add(set1);

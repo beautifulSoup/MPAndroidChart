@@ -318,16 +318,14 @@ public class CandleStickChartRenderer extends LineScatterCandleRadarRenderer {
             if (!isInBoundsX(e, set))
                 continue;
 
-            float lowValue = e.getLow() * mAnimator.getPhaseY();
-            float highValue = e.getHigh() * mAnimator.getPhaseY();
-            float y = (lowValue + highValue) / 2f;
+            float y = e.getClose() * mAnimator.getPhaseY();
 
             MPPointD pix = mChart.getTransformer(set.getAxisDependency()).getPixelForValues(e.getX(), y);
 
             high.setDraw((float) pix.x, (float) pix.y);
 
             // draw the lines
-            drawHighlightLines(c, (float) pix.x, (float) pix.y, set);
+            drawHighlightLines(c, (float) pix.x, (float) pix.y, e.getX(), e.getLow(), set);
         }
     }
 }

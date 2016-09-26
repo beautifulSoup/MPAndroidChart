@@ -21,6 +21,7 @@ import com.github.mikephil.charting.data.CandleData;
 import com.github.mikephil.charting.data.CandleDataSet;
 import com.github.mikephil.charting.data.CandleEntry;
 import com.github.mikephil.charting.interfaces.datasets.ICandleDataSet;
+import com.github.mikephil.charting.renderer.IHighlightRender;
 import com.xxmassdeveloper.mpchartexample.notimportant.DemoBase;
 
 import java.util.ArrayList;
@@ -147,6 +148,8 @@ public class CandleStickChartActivity extends DemoBase implements OnSeekBarChang
         return true;
     }
 
+    IHighlightRender highlightRender = new CustomHighlightRender();
+
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
         
@@ -185,6 +188,7 @@ public class CandleStickChartActivity extends DemoBase implements OnSeekBarChang
         set1.setIncreasingColor(Color.rgb(122, 242, 84));
         set1.setIncreasingPaintStyle(Paint.Style.STROKE);
         set1.setNeutralColor(Color.BLUE);
+        set1.setHighlightRender(highlightRender);
         //set1.setHighlightLineWidth(1f);
 
         CandleData data = new CandleData(set1);

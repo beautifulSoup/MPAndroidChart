@@ -25,6 +25,7 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.renderer.IHighlightRender;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.xxmassdeveloper.mpchartexample.notimportant.DemoBase;
 
@@ -37,6 +38,8 @@ public class LineChartActivity2 extends DemoBase implements OnSeekBarChangeListe
     private LineChart mChart;
     private SeekBar mSeekBarX, mSeekBarY;
     private TextView tvX, tvY;
+
+    IHighlightRender highlightRender = new CustomHighlightRender();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -326,6 +329,7 @@ public class LineChartActivity2 extends DemoBase implements OnSeekBarChangeListe
             set1.setFillColor(ColorTemplate.getHoloBlue());
             set1.setHighLightColor(Color.rgb(244, 117, 117));
             set1.setDrawCircleHole(false);
+            set1.setHighlightRender(highlightRender);
             //set1.setFillFormatter(new MyFillFormatter(0f));
             //set1.setDrawHorizontalHighlightIndicator(false);
             //set1.setVisible(false);

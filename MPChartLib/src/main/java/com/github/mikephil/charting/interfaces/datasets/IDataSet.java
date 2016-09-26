@@ -8,6 +8,7 @@ import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.DataSet;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.formatter.IValueFormatter;
+import com.github.mikephil.charting.renderer.IHighlightRender;
 
 import java.util.List;
 
@@ -295,6 +296,10 @@ public interface IDataSet<T extends Entry> {
      * @param enabled
      */
     void setHighlightEnabled(boolean enabled);
+
+    void setHighlightRender(IHighlightRender highlightRender);
+
+    IHighlightRender getHighlightRender();
 
     /**
      * Sets the formatter to be used for drawing the values inside the chart. If

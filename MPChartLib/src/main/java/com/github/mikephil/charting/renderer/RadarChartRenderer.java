@@ -18,8 +18,6 @@ import com.github.mikephil.charting.utils.MPPointF;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
 
-import java.util.List;
-
 public class RadarChartRenderer extends LineRadarRenderer {
 
     protected RadarChart mChart;
@@ -294,7 +292,7 @@ public class RadarChartRenderer extends LineRadarRenderer {
             high.setDraw(pOut.x, pOut.y);
 
             // draw the lines
-            drawHighlightLines(c, pOut.x, pOut.y, set);
+            drawHighlightLines(c, pOut.x, pOut.y, e.getValue(), e.getY(), set);
 
             if (set.isDrawHighlightCircleEnabled()) {
 

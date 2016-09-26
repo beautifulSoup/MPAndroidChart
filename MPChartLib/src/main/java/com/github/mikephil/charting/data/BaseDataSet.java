@@ -7,9 +7,9 @@ import android.graphics.Typeface;
 
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.formatter.DefaultValueFormatter;
 import com.github.mikephil.charting.formatter.IValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.IDataSet;
+import com.github.mikephil.charting.renderer.IHighlightRender;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.github.mikephil.charting.utils.Utils;
 
@@ -89,6 +89,9 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         mColors.add(Color.rgb(140, 234, 255));
         mValueColors.add(Color.BLACK);
     }
+
+
+    IHighlightRender mHighlightRender;
 
     /**
      * Constructor with label.
@@ -452,5 +455,16 @@ public abstract class BaseDataSet<T extends Entry> implements IDataSet<T> {
         }
 
         return false;
+    }
+
+
+    @Override
+    public void setHighlightRender(IHighlightRender highlightRender){
+        mHighlightRender = highlightRender;
+    }
+
+    @Override
+    public IHighlightRender getHighlightRender(){
+        return mHighlightRender;
     }
 }

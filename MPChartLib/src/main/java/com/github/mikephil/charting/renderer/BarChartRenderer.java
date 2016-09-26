@@ -14,6 +14,7 @@ import com.github.mikephil.charting.highlight.Highlight;
 import com.github.mikephil.charting.highlight.Range;
 import com.github.mikephil.charting.interfaces.dataprovider.BarDataProvider;
 import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.MPPointD;
 import com.github.mikephil.charting.utils.Transformer;
 import com.github.mikephil.charting.utils.Utils;
 import com.github.mikephil.charting.utils.ViewPortHandler;
@@ -33,6 +34,7 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
 
     protected Paint mShadowPaint;
     protected Paint mBarBorderPaint;
+
 
     public BarChartRenderer(BarDataProvider chart, ChartAnimator animator,
                             ViewPortHandler viewPortHandler) {
@@ -346,41 +348,52 @@ public class BarChartRenderer extends BarLineScatterCandleBubbleRenderer {
             if (!isInBoundsX(e, set))
                 continue;
 
-            Transformer trans = mChart.getTransformer(set.getAxisDependency());
 
-            mHighlightPaint.setColor(set.getHighLightColor());
-            mHighlightPaint.setAlpha(set.getHighLightAlpha());
 
-            boolean isStack = (high.getStackIndex() >= 0  && e.isStacked()) ? true : false;
+            IHighlightRender highlightRender = set.getHighlightRender();
+            if(highlightRender != null){
+                MPPointD pix = mChart.getTransformer(set.getAxisDependency()).getPixelForValues(e.getX(), e.getY() * mAnimator
+                        .getPhaseY());
 
-            final float y1;
-            final float y2;
+                high.setDraw((float) pix.x, (float) pix.y);
 
-            if (isStack) {
+                highlightRender.drawHighlightLines(c, (float) pix.x, (float) pix.y, e.getX(), e.getY(), set, mViewPortHandler);
+            } else {
+                Transformer trans = mChart.getTransformer(set.getAxisDependency());
+                mHighlightPaint.setColor(set.getHighLightColor());
+                mHighlightPaint.setAlpha(set.getHighLightAlpha());
 
-                if(mChart.isHighlightFullBarEnabled()) {
+                boolean isStack = (high.getStackIndex() >= 0 && e.isStacked()) ? true : false;
 
-                    y1 = e.getPositiveSum();
-                    y2 = -e.getNegativeSum();
+                final float y1;
+                final float y2;
+
+                if (isStack) {
+
+                    if (mChart.isHighlightFullBarEnabled()) {
+
+                        y1 = e.getPositiveSum();
+                        y2 = -e.getNegativeSum();
+
+                    } else {
+
+                        Range range = e.getRanges()[high.getStackIndex()];
+
+                        y1 = range.from;
+                        y2 = range.to;
+                    }
 
                 } else {
-
-                    Range range = e.getRanges()[high.getStackIndex()];
-
-                    y1 = range.from;
-                    y2 = range.to;
+                    y1 = e.getY();
+                    y2 = 0.f;
                 }
 
-            } else {
-                y1 = e.getY();
-                y2 = 0.f;
+                prepareBarHighlight(e.getX(), y1, y2, barData.getBarWidth() / 2f, trans);
+
+                setHighlightDrawPos(high, mBarRect);
+
+                c.drawRect(mBarRect, mHighlightPaint);
             }
-
-            prepareBarHighlight(e.getX(), y1, y2, barData.getBarWidth() / 2f, trans);
-
-            setHighlightDrawPos(high, mBarRect);
-
-            c.drawRect(mBarRect, mHighlightPaint);
         }
     }
 

@@ -36,6 +36,7 @@ import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.listener.ChartTouchListener;
 import com.github.mikephil.charting.listener.OnChartGestureListener;
 import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
+import com.github.mikephil.charting.renderer.IHighlightRender;
 import com.github.mikephil.charting.utils.Utils;
 import com.xxmassdeveloper.mpchartexample.custom.MyMarkerView;
 import com.xxmassdeveloper.mpchartexample.notimportant.DemoBase;
@@ -49,6 +50,8 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
     private LineChart mChart;
     private SeekBar mSeekBarX, mSeekBarY;
     private TextView tvX, tvY;
+
+    IHighlightRender highlightRender = new CustomHighlightRender();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +76,7 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
         mChart.setOnChartGestureListener(this);
         mChart.setOnChartValueSelectedListener(this);
         mChart.setDrawGridBackground(false);
-
+        mChart.setDoubleTapToZoomEnabled(false);
         mChart.setForceTopOffset(30f);
         // no description text
         mChart.setDescription("");
@@ -81,10 +84,11 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
 
         // enable touch gestures
         mChart.setTouchEnabled(true);
+        mChart.setOnTouchListener(new CustomLineChartTouchListener(mChart, mChart.getViewPortHandler().getMatrixTouch(), 3f));
 
         // enable scaling and dragging
-        mChart.setDragEnabled(true);
-        mChart.setScaleEnabled(true);
+        mChart.setDragEnabled(false);
+        mChart.setScaleEnabled(false);
         // mChart.setScaleXEnabled(true);
         // mChart.setScaleYEnabled(true);
 
@@ -444,6 +448,7 @@ public class LineChartActivity1 extends DemoBase implements OnSeekBarChangeListe
             set1.setLineWidth(1f);
             set1.setCircleRadius(3f);
             set1.setDrawCircleHole(false);
+            set1.setHighlightRender(highlightRender);
             set1.setValueTextSize(9f);
             set1.setDrawFilled(true);
             set1.setFormLineWidth(1f);

@@ -39,7 +39,7 @@ public class SpecialLabel {
     }
 
     public void setLineWidth(float lineWidth) {
-        this.lineWidth = Utils.convertPixelsToDp(lineWidth);
+        this.lineWidth = Utils.convertDpToPixel(lineWidth);
     }
 
     public String getText() {

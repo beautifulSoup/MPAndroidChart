@@ -111,7 +111,7 @@ public class ScatterChartRenderer extends LineScatterCandleRadarRenderer {
                         .generateTransformedValuesScatter(dataSet,
                                 mAnimator.getPhaseX(), mAnimator.getPhaseY(), mXBounds.min, mXBounds.max);
 
-                float shapeSize = Utils.convertDpToPixel(dataSet.getScatterShapeSize());
+                float shapeSize = dataSet.getScatterShapeSize();
 
                 for (int j = 0; j < positions.length; j += 2) {
 
